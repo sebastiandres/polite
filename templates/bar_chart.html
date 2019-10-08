@@ -1,0 +1,25 @@
+<HTML>
+    <BODY bgcolor="white">
+        <svg class="bar-chart"></svg>
+        <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+        <script>
+            const svg = document.querySelector('.bar-chart')
+            
+        const barChart = new chartXkcd.Bar(svg, {
+            title: 'github stars VS patron number', // optional
+            // xLabel: '', // optional
+            // yLabel: '', // optional
+            data: {
+            labels: ['github stars', 'patrons'],
+            datasets: [{
+                data: [100, 2],
+            }],
+            },
+            options: { // optional
+            yTickCount: 2,
+            },
+        });
+        
+        </script>        
+    </BODY>
+</HTML>

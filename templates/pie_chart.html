@@ -1,0 +1,22 @@
+<HTML>
+    <BODY bgcolor="white">
+        <svg class="pie-chart"></svg>
+        <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+        <script>
+            const svg = document.querySelector('.pie-chart');
+            const pieChart = new chartXkcd.Pie(svg, {
+            title: 'What Tim made of', // optional
+            data: {
+                labels: ['a', 'b', 'e', 'f', 'g'],
+                datasets: [{
+                data: [500, 200, 80, 90, 100],
+                }],
+            },
+            options: { // optional
+                innerRadius: 0.5,
+                legendPosition: chartXkcd.config.positionType.upRight,
+            },
+            });        
+        </script>
+    </BODY>
+</HTML>

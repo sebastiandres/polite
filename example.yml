@@ -1,0 +1,5 @@
+MYSQL_HOST : '127.0.0.1'
+MYSQL_USER : 'my_user_name'
+MYSQL_PASSWORD : 'my_user_password'
+MYSQL_DB : 'my_database_name'
+DEBUG_MODE : 'True'
