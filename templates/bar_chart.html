@@ -5,20 +5,25 @@
         <script>
             const svg = document.querySelector('.bar-chart')
             
-        const barChart = new chartXkcd.Bar(svg, {
-            title: 'github stars VS patron number', // optional
-            // xLabel: '', // optional
-            // yLabel: '', // optional
-            data: {
-            labels: ['github stars', 'patrons'],
-            datasets: [{
-                data: [100, 2],
-            }],
-            },
-            options: { // optional
-            yTickCount: 2,
-            },
-        });
+            const barChart = new chartXkcd.Bar(svg, {
+                title: "{{ data['title'] }}", 
+                xLabel: "{{ data['xLabel'] }}", 
+                yLabel: "{{ data['yLabel'] }}",
+                data: {
+                    labels: 
+                    [
+                      {%for label in data['data.labels']%} 
+                        "{{label}}",
+                      {%endfor%} 
+                    ],
+                    datasets: [{
+                        data: {{ data['data.datasets.data'] }},
+                    }],
+                },
+                options: { // optional
+                    yTickCount: 2,
+                },
+            });
         
         </script>        
     </BODY>
