@@ -41,6 +41,7 @@ def new():
     if request.method == "POST":
         details = request.form
         survey_markdown = details['survey']
+        print(survey_markdown)
         cur = mysql.connection.cursor()
         cur.execute('''INSERT INTO Surveys(question_markdown) VALUES ("{0}");'''.format(survey_markdown))
         mysql.connection.commit()
