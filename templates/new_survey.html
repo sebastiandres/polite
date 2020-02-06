@@ -1,22 +1,28 @@
 <HTML>
+    <head>
+        <title>polite: index</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      </head>    
+
     <BODY bgcolor="white">
+        <h2>Polite: new survey </h2>
+        <h3>A "poll lite" system with minimal python, html and javascript.</h3>
 
         <form method="POST" action="">
         <left>
-        <h2>Survey Lite: new survey </h2>
         Create a survey using the following convention.  <br>
         <br>
         Question with single answer (radio button): <br>
-        * Option 1 <br>
-        * Option 2 <br>
-        * Option 3 <br>
+         * Option 1 <br>
+         * Option 2 <br>
+         * Option 3 <br>
         <br>
         Question with multiple answers (checkbox): <br>
-        ^ Option 1 <br>
-        ^ Option 2 <br>
-        ^ Option 3 <br>
+         ^ Option 1 <br>
+         ^ Option 2 <br>
+         ^ Option 3 <br>
         <br>
-        Type your answer here:<br>        
+        Type your survey here, considering a maximum of 5 answer options:<br>        
         <textarea name="survey" rows="10" cols="80" style="font-size: 12pt">Python never gonna:
  ^ give you up.
  ^ let you down.

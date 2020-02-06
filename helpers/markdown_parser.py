@@ -1,6 +1,11 @@
 def markdown_parser(my_text):
     """
-    Converts a string into a question, a list of answer options, and a question_type.
+    Creates a dict, by parsing the string my_text. 
+    The dict has only keys (is_format_ok, markownd_str) if the 
+    string my_text has format errors. 
+    If the format is ok, it also has the question_str, 
+    options_str from 1 to 5 (drops any additional option), 
+    and the question_type (radio for single answer, checkbox for multiple answer).
     """
     if my_text.count(":")!=1:
         print("Cannot parse, there's an error in the format")

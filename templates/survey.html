@@ -1,6 +1,12 @@
 <HTML>
+    <head>
+        <title>polite: index</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      </head>
+    
     <BODY bgcolor="white">
-        <h2>Survey Lite: Survey #{{data['survey_id']}}</h2>
+        <h2>Polite: survey #{{data['survey_id']}} </h2>
+        <h3>A "poll lite" system with minimal python, html and javascript.</h3>
 
         {{data['question_str']}}: <br/>
 

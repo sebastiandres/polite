@@ -1,8 +1,8 @@
 ###################
 # CREATE DATABASE #
 ###################
-CREATE DATABASE SURVEY_LITE;
-USE SURVEY_LITE;
+CREATE DATABASE POLITE;
+USE POLITE;
 
 ################
 # TABLE SURVEY #
@@ -14,21 +14,22 @@ CREATE TABLE Surveys
   type_str VARCHAR(2000) NOT NULL,
   question_str VARCHAR(2000) NOT NULL,
   option_1_str VARCHAR(2000) NOT NULL,
-  option_2_str VARCHAR(2000) NOT NULL,
+  option_2_str VARCHAR(2000),
   option_3_str VARCHAR(2000),
   option_4_str VARCHAR(2000),
   option_5_str VARCHAR(2000),
-  creation_date DATETIME DEFAULT NOW()
+  question_datetime DATETIME DEFAULT NOW()
 );
 
 INSERT INTO surveys ( markdown_str, type_str, question_str, option_1_str,	option_2_str ) 
-VALUES ('Gato: * Milo * Chispy', 'single', 'Gato', 'Milo', 'Chispy'); 
+VALUES ('¿Qué fue primero?: * El huevo * La gallina', 'radio', '¿Qué fue primero?', 'El huevo', 'La gallina'); 
 
-
-INSERT INTO surveys ( markdown_str, type_str, question_str, option_1_str, option_2_str, option_3_str, option_4_str, option_5_str ) 
-VALUES ('Hamster: v Pitagoras v Socrates v Aristoteles v Platon v Dexter', 'multiple', "Hamster", "Pitagoras", "Socrates", "Aristoteles", "Platon", "Dexter");
+INSERT INTO surveys ( markdown_str, type_str, 
+                      question_str, option_1_str, option_2_str, option_3_str, option_4_str, option_5_str, question_datetime ) 
+VALUES ('¿Cuál es la mejor mascota?: v Perro v Gato v Pitón v Otra', 'checkbox', 
+        "¿Cuál es la mejor mascota?", "Perro", "Gato", "Pitón", "Otra", "", "2020-01-01 00:00:01");
       
-SELECT * FROM Surveys
+SELECT * FROM surveys;
 
 ########################
 # TABLE SURVEY ANSWERS #
@@ -38,14 +39,24 @@ CREATE TABLE survey_answers
 (
   survey_id INT NOT NULL,
   option_number INT NOT NULL,
-  survey_datetime DATETIME DEFAULT NOW(),
-  FOREIGN KEY (survey_id) REFERENCES Surveys(survey_id)
+  answer_datetime DATETIME DEFAULT NOW(),
+  FOREIGN KEY (survey_id) REFERENCES surveys(survey_id)
 );
 
 INSERT INTO survey_answers (survey_id, option_number) 
-VALUES (1, 1), (2, 2);
+VALUES (1, 2), (1, 1), (1, 1), (1, 2), (1, 2), (1, 2), (1, 2);
 
-INSERT INTO survey_answers (survey_id, option_number, survey_datetime) 
-VALUES (1, 1, "2019-10-07 21:34:44"), (1, 1, "2019-10-07 21:34:44"), (1, 2, "2019-10-07 21:34:40");
+INSERT INTO survey_answers (survey_id, option_number, answer_datetime) 
+VALUES (2, 1, "2020-01-01 00:01:01"),
+       (2, 2, "2020-01-01 00:01:01"),
+       (2, 4, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01"),
+       (2, 3, "2020-01-01 00:01:01");
 
-select * from survey_answers
+select * from survey_answers;

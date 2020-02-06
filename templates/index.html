@@ -1,11 +1,18 @@
 <HTML>
+  <head>
+    <title>polite: index</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+
     <BODY bgcolor="white">
-        <h2>Survey Lite: index</h2>
+        <h2>Polite: index</h2>
+        <h3>A "poll lite" system with minimal python, html and javascript.</h3>
         <ul>
-            <li> <a href="{{ url_for('new') }}">New survey</a> </li>
-            <li> <a href="{{ url_for('survey') }}">Last created survey</a> </li>
-            <li> Plot the results for the last survey:
+            <li> <a href="{{ url_for('new') }}">Create new survey</a> </li>
+            <li> <a href="{{ url_for('survey') }}">Take the most recent survey</a> </li>
+            <li> Plot the results for most recent survey:
             <ul>
+                <li> <a href="{{ url_for('data') }}">Data</a> </li>
                 <li> <a href="{{ url_for('bar_chart') }}">Bar chart</a> </li>
                 <li> <a href="{{ url_for('bar_chart') }}">Pie chart</a> </li>
               </ul>
