@@ -1,59 +1,51 @@
+###################
+# CREATE DATABASE #
+###################
+CREATE DATABASE SURVEY_LITE;
+USE SURVEY_LITE;
+
+################
 # TABLE SURVEY #
+################
 CREATE TABLE Surveys
 (
   survey_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  question_markdown VARCHAR(2000)
+  markdown_str VARCHAR(2000) NOT NULL,
+  type_str VARCHAR(2000) NOT NULL,
+  question_str VARCHAR(2000) NOT NULL,
+  option_1_str VARCHAR(2000) NOT NULL,
+  option_2_str VARCHAR(2000) NOT NULL,
+  option_3_str VARCHAR(2000),
+  option_4_str VARCHAR(2000),
+  option_5_str VARCHAR(2000),
+  creation_date DATETIME DEFAULT NOW()
 );
 
-INSERT INTO Surveys (	) 
-VALUES ('Gato: Milo o Chispy'), ('Hamster: Pitagoras o Socrates');
+INSERT INTO Surveys ( markdown_str, type_str, question_str, option_1_str,	option_2_str ) 
+VALUES ('Gato: * Milo * Chispy', 'single', 'Gato', 'Milo', 'Chispy'); 
 
+
+INSERT INTO Surveys ( markdown_str, type_str, question_str, option_1_str, option_2_str, option_3_str, option_4_str, option_5_str ) 
+VALUES ('Hamster: v Pitagoras v Socrates v Aristoteles v Platon v Dexter', 'multiple', "Hamster", "Pitagoras", "Socrates", "Aristoteles", "Platon", "Dexter");
+      
 SELECT * FROM Surveys
 
-
-# TABLE QUESTIONS #
-CREATE TABLE SurveyQuestions
-(
-  survey_id INT NOT NULL PRIMARY KEY,
-  question_str VARCHAR(200),
-  question_type VARCHAR(100),
-  number_of_options INT
-);
-
-INSERT INTO SurveyQuestions (survey_id, question_str, question_type, number_of_options) 
-VALUES (1, "Gato:", "radio", 2), (2, "Hamster", "checkbox", 2);
-
-SELECT * FROM SurveyQuestions
-
-# TABLE SURVEYOPTIONS #
-CREATE TABLE SurveyOptions
-(
-  survey_id INT NOT NULL,
-  option_number INT,
-  option_text VARCHAR(200),
-  FOREIGN KEY (survey_id) REFERENCES Surveys(survey_id),
-  PRIMARY KEY(survey_id, option_number)  
-);
-
-INSERT INTO SurveyOptions (survey_id, option_number, option_text) 
-VALUES (1, 1, "Milo"), (1, 2, "Chispy"), (2, 1, "Pitagoras"), (2, 2, "Socrates");
-
-UPDATE SurveyOptions
-SET option_text="Chispy" 
-WHERE survey_id=1 AND option_number=2;
-
-SELECT * FROM SurveyOptions
-
+########################
 # TABLE SURVEY ANSWERS #
-CREATE TABLE SurveyAnswers
+########################
+
+CREATE TABLE Survey_Answers
 (
   survey_id INT NOT NULL,
-  option_number INT,
-  survey_datetime DATETIME,
+  option_number INT NOT NULL,
+  survey_datetime DATETIME DEFAULT NOW(),
   FOREIGN KEY (survey_id) REFERENCES Surveys(survey_id)
 );
 
-INSERT INTO SurveyAnswers (survey_id, option_number, survey_datetime) 
+INSERT INTO Survey_Answers (survey_id, option_number) 
+VALUES (1, 1), (2, 2);
+
+INSERT INTO Survey_Answers (survey_id, option_number, survey_datetime) 
 VALUES (1, 1, "2019-10-07 21:34:44"), (1, 1, "2019-10-07 21:34:44"), (1, 2, "2019-10-07 21:34:40");
 
-SELECT * FROM SurveyAnswers
+select * from survey_answers

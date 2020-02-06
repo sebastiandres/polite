@@ -1,7 +1,15 @@
 <HTML>
     <BODY bgcolor="white">
-        <a href="{{ url_for('new') }}">New Survey</a> <br>
-        <a href="{{ url_for('last') }}">Last created survey</a> <br>
-        Check the results: <a href="{{ url_for('bar_chart') }}">bar chart</a>, <a href="{{ url_for('bar_chart') }}">pie chart</a> <br>
+        <h2>Survey Lite: index</h2>
+        <ul>
+            <li> <a href="{{ url_for('new') }}">New survey</a> </li>
+            <li> <a href="{{ url_for('survey') }}">Last created survey</a> </li>
+            <li> Plot the results for the last survey:
+            <ul>
+                <li> <a href="{{ url_for('bar_chart') }}">Bar chart</a> </li>
+                <li> <a href="{{ url_for('bar_chart') }}">Pie chart</a> </li>
+              </ul>
+            </li>
+          </ul>
     </BODY>
 </HTML>

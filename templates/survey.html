@@ -1,0 +1,30 @@
+<HTML>
+    <BODY bgcolor="white">
+        <h2>Survey Lite: Survey #{{data['survey_id']}}</h2>
+
+        {{data['question_str']}}: <br/>
+
+        <form name="send_answers" method="POST">
+
+                {% if data['option_1_str']!='' %}
+                    <input type="{{data['type_str']}}" name="{{data['survey_id']}}" value="1"> {{data['option_1_str']}} <br>
+                {%endif%}
+                {% if data['option_2_str']!='' %}
+                    <input type="{{data['type_str']}}" name="{{data['survey_id']}}" value="2"> {{data['option_2_str']}} <br>
+                {%endif%}
+                {% if data['option_3_str']!='' %}
+                    <input type="{{data['type_str']}}" name="{{data['survey_id']}}" value="3"> {{data['option_3_str']}} <br>
+                {%endif%}
+                {% if data['option_4_str']!='' %}
+                    <input type="{{data['type_str']}}" name="{{data['survey_id']}}" value="4"> {{data['option_4_str']}} <br>
+                {%endif%}
+                {% if data['option_5_str']!='' %}
+                    <input type="{{data['type_str']}}" name="{{data['survey_id']}}" value="5"> {{data['option_5_str']}} <br>
+                {%endif%}
+
+            <br>
+            <input type="submit" /> <br>
+        </form>        
+
+    </BODY>
+</HTML>
