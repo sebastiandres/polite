@@ -5,7 +5,7 @@ import yaml
 
 # Auxiliar files
 from helpers import markdown_parser as mdp
-from helpers import counting
+from helpers import sql
 
 # Parameters
 config_file = 'local.yml'
@@ -61,7 +61,7 @@ def new():
 @app.route('/survey/', methods=['GET', 'POST'])
 @app.route('/survey/<survey_id>', methods=['GET', 'POST'])
 def survey(survey_id=-1):
-    last_survey_id = counting.last(mysql)
+    last_survey_id = sql.last_survey_id(mysql)
     survey_id = int(survey_id)
     # Update to last survey id
     if (survey_id<1) or (survey_id>last_survey_id):
@@ -69,7 +69,7 @@ def survey(survey_id=-1):
     # Return the page
     if request.method == "GET":
         # Get the data for last survey
-        survey_dict = counting.get_survey(mysql, survey_id)
+        survey_dict = sql.get_survey(mysql, survey_id)
         return render_template('survey.html', data=survey_dict)
     elif request.method == "POST":
         my_answered_form = request.form.to_dict()
@@ -93,26 +93,23 @@ def survey(survey_id=-1):
 @app.route('/bar_chart/', methods=['GET'])
 @app.route('/bar_chart/<survey_id>', methods=['GET'])
 def bar_chart(survey_id=-1):
-    last_survey_id = counting.last()
-    survey_id = int(survey_id)
-    # Update to last survey id
+    # Update to last survey id, if needed
+    last_survey_id = sql.last_survey_id(mysql)
+    survey_id = int(survey_id) # survey_id is a string originally
     if (survey_id<1) or (survey_id>last_survey_id):
         survey_id = last_survey_id
     # Plot the answers
-    survey_answers = {"Pregunta 1":10, "Pregunta 2":20, "Pregunta 3":30}
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT question_str FROM surveyQuestions WHERE survey_id=1")
-    mysql_data = cur.fetchall()
-    print(type(mysql_data), mysql_data)
-    title  = mysql_data[0][0]
+    survey_dict = sql.get_survey_data(mysql, survey_id)
+    count_df = sql.get_answers_count(mysql, survey_id)
+    title  = survey_dict["question_str"]
     chart_data = {}
     chart_data["title"] = title
     chart_data["xLabel"] = "Opciones"
     chart_data["yLabel"] = "Número de Respuestas"
-    chart_data["data.labels"] = ["Opcion 1", "Opcion 2", "Opcion 3"]
-    chart_data["data.datasets.data"] = [2, 4, 6]
+    chart_data["data.labels"] = list(count_df.index) #["Opcion 1", "Opcion 2", "Opcion 3"]
+    chart_data["data.datasets.data"] = list(count_df.values) #[2, 4, 6]
+    print(chart_data)
     return render_template('bar_chart.html', data=chart_data)
-
     
 if __name__ == '__main__':
     app.run(debug=DEBUG_MODE)
