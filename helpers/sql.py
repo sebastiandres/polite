@@ -54,5 +54,6 @@ def get_answers_count(mysql, survey_id):
     Returns a pandas series, where the index are the options and the values are the option "votes" (counts).
     """
     answer_df = get_answers_data(mysql, survey_id)
-    count_df = answer_df["answer_str"].value_counts()
-    return count_df
+    count_df = answer_df["answer_str"].value_counts().to_frame().rename(columns={"answer_str":"count"})
+    count_df["answer_str"] = count_df.index
+    return count_df[["answer_str","count"]]

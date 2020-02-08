@@ -1,21 +1,22 @@
 <HTML>
     <head>
-        <title>polite: index</title>
+        <title>polite: bar chart</title>
+        <script src="{{url_for('static', filename='chart.xkcd.min.js') }}"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-      </head>
+    </head>
     
-    <BODY bgcolor="white">
+    <BODY>
         <h2>Polite: bar chart for survey #{{data['survey_id']}}</h2>
         <h3>A "poll lite" system with minimal python, html and javascript.</h3>
 
-        <svg class="bar-chart"></svg>
-        <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+        <div style="width: 1000px; height: 600px;">
+        <svg class="bar-chart" width=100px></svg>
+        </div>
         <script>
             const svg = document.querySelector('.bar-chart')
             
             const barChart = new chartXkcd.Bar(svg, {
                 title: "{{ data['title'] }}", 
-                xLabel: "{{ data['xLabel'] }}", 
                 yLabel: "{{ data['yLabel'] }}",
                 data: {
                     labels: 

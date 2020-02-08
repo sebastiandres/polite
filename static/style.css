@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "xkcd";
+    src: url('xkcd.ttf'); 
+    }
+body {
+    margin-left: 10;
+    padding: 0;
+    font-family: "xkcd";
+    color: #222;
+    }
+h1 {
+    color: #555;
+    }
+h2 {
+    color: #444;
+    }
+h3 {
+    color: #333;
+    }
+textarea {
+    margin-top: 5px;
+    margin-left: 25px;
+    padding: 0;
+    font-family: "xkcd";
+    color: #622;
+    }
+button{
+    font-family: 'xkcd';
+    }
+input {
+    margin-top: 5px;
+    margin-left: 25px;
+    font-family: "xkcd";
+    color: #222;
+    }
+
+table {
+        border: 3px solid #000000;
+        text-align: left;
+        border-collapse: collapse;
+    }
+table td, table th {
+        border: 1px solid #000000;
+        padding: 5px 4px;
+        text-align: center;
+      }
+table thead {
+        background: #CFCFCF;
+        border-bottom: 3px solid #000000;
+        text-align: center;
+      }

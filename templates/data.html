@@ -1,6 +1,6 @@
 <HTML>
     <head>
-        <title>polite: index</title>
+        <title>polite: data</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
       </head>
     
@@ -8,12 +8,18 @@
         <h2>Polite: data for survey #{{data['survey_id']}}</h2>
         <h3>A "poll lite" system with minimal python, html and javascript.</h3>
 
-        {{data['question_str']}}: <br>
+        Pregunta: "{{data['question_str']}}"<br>
+        <br>
+        Todas las respuestas:<br>
         <table>
-        {{data['df']}}
+        {{data['df'].to_html(index=False)|safe}}
         </table>
-
-        <table border="1" class="dataframe"> <thead> <tr style="text-align: right;"> <th></th> <th>survey_id</th> <th>option_number</th> <th>answer_str</th> </tr> </thead> <tbody> <tr> <th>0</th> <td>2</td> <td>1</td> <td>Perro</td> </tr> <tr> <th>1</th> <td>2</td> <td>2</td> <td>Gato</td> </tr> <tr> <th>2</th> <td>2</td> <td>4</td> <td>Otra</td> </tr> <tr> <th>3</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>4</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>5</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>6</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>7</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>8</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>9</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> <tr> <th>10</th> <td>2</td> <td>3</td> <td>Pitón</td> </tr> </tbody> </table>
+        <br>
+        Conteo de respuestas:<br>
+        <table>
+        {{data['df_count'].to_html(index=False)|safe}}
+        </table>
+            
 
     </BODY>
 </HTML>

@@ -31,27 +31,28 @@ def index():
 @app.route('/new/', methods=['GET', 'POST'])
 def new():
     if request.method == "GET":
-        return render_template('new_survey.html')
+        default_survey = "Python never gonna:\n^ give you up.\n^ let you down.\n^ run around and desert you.\n^ make you cry.\n^ say goodbye.\n^ tell a lie and hurt you."
+        md_dict = {"is_format_ok": True, "markdown_str": default_survey}
+        return render_template('new_survey.html', data=md_dict)
     elif request.method == "POST":
-        md_dict = {"is_format_ok":False}
-        while not md_dict["is_format_ok"]:
-            my_answered_form = request.form
-            survey_markdown = my_answered_form['survey']
-            md_dict = mdp.markdown_parser(survey_markdown)
-            query_fmt = """
-            INSERT INTO Surveys ( markdown_str, type_str, question_str, option_1_str, option_2_str, option_3_str, option_4_str, option_5_str ) 
-            VALUES ('{markdown_str}', '{type_str}', '{question_str}', '{option_1_str}', '{option_2_str}', '{option_3_str}', '{option_4_str}', '{option_5_str}');
-            """
-            if md_dict["is_format_ok"]:
-                cur = mysql.connection.cursor()
-                # Add the survey
-                query = query_fmt.format(**md_dict)
-                cur.execute(query)
-                mysql.connection.commit()
-                cur.close()
-                return render_template('index.html')
-            else:
-                print("Wrong format")
+        my_answered_form = request.form
+        survey_markdown = my_answered_form['survey']
+        md_dict = mdp.markdown_parser(survey_markdown)
+        query_fmt = """
+        INSERT INTO Surveys ( markdown_str, type_str, question_str, option_1_str, option_2_str, option_3_str, option_4_str, option_5_str ) 
+        VALUES ('{markdown_str}', '{type_str}', '{question_str}', '{option_1_str}', '{option_2_str}', '{option_3_str}', '{option_4_str}', '{option_5_str}');
+        """
+        if md_dict["is_format_ok"]:
+            cur = mysql.connection.cursor()
+            # Add the survey
+            query = query_fmt.format(**md_dict)
+            cur.execute(query)
+            mysql.connection.commit()
+            cur.close()
+            return render_template('index.html')
+        else:
+            print("Wrong format")
+            return render_template('new_survey.html', data=md_dict)
     else:
         print(request.method)
         print("HOW THE HELL DID YOU GET HERE?")
@@ -99,8 +100,10 @@ def data(survey_id=-1):
     if request.method == "GET":
         # Get the data for last survey
         survey_dict = sql.get_survey_data(mysql, survey_id)
-        answer_df = sql.get_answers_data(mysql, survey_id)
-        survey_dict["df"] = answer_df.to_html().replace("&lt;","<").replace("&gt;",">")
+        # Add the answers
+        survey_dict["df"] = sql.get_answers_data(mysql, survey_id)
+        # Add the count summary
+        survey_dict["df_count"] = sql.get_answers_count(mysql, survey_id)
         return render_template('data.html', data=survey_dict)
     else:
         print(request.method)
@@ -121,10 +124,9 @@ def bar_chart(survey_id=-1):
     chart_data = {}
     chart_data["title"] = title + ":"
     chart_data["survey_id"] = survey_id
-    chart_data["xLabel"] = "Options"
     chart_data["yLabel"] = "# Answers"
-    chart_data["data.labels"] = list(count_df.index)
-    chart_data["data.datasets.data"] = list(count_df.values)
+    chart_data["data.labels"] = list(count_df["answer_str"])
+    chart_data["data.datasets.data"] = list(count_df["count"])
     print(chart_data)
     return render_template('bar_chart.html', data=chart_data)
 
@@ -143,11 +145,8 @@ def pie_chart(survey_id=-1):
     chart_data = {}
     chart_data["title"] = title + ":"
     chart_data["survey_id"] = survey_id
-    chart_data["xLabel"] = "Options"
-    chart_data["yLabel"] = "# Answers"
-    chart_data["data.labels"] = list(count_df.index)
-    chart_data["data.datasets.data"] = list(count_df.values)
-    print(chart_data)
+    chart_data["data.labels"] = list(count_df["answer_str"])
+    chart_data["data.datasets.data"] = list(count_df["count"])
     return render_template('pie_chart.html', data=chart_data)
 
 if __name__ == '__main__':

@@ -12,10 +12,10 @@ def markdown_parser(my_text):
         return {"is_format_ok":False, "markdown_str":my_text}
     single_option = 0
     multiple_option = 0
-    if (" * " in my_text) or ("\n* " in my_text):
+    if ("* " in my_text) or ("\n* " in my_text):
         single_option = 1
         split_char = "*"
-    if (" ^ " in my_text) or ("\nv " in my_text):
+    if ("^ " in my_text) or ("\nv " in my_text):
         multiple_option = 1
         split_char = "^"
     # If both False or both True, simultaneoulsy, there's an error

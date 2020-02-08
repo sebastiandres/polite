@@ -1,6 +1,6 @@
 <HTML>
     <head>
-        <title>polite: index</title>
+        <title>polite: new</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
       </head>    
 
@@ -13,26 +13,22 @@
         Create a survey using the following convention.  <br>
         <br>
         Question with single answer (radio button): <br>
-         * Option 1 <br>
-         * Option 2 <br>
-         * Option 3 <br>
+        * Option 1 <br>
+        * Option 2 <br>
+        * Option 3 <br>
         <br>
         Question with multiple answers (checkbox): <br>
-         ^ Option 1 <br>
-         ^ Option 2 <br>
-         ^ Option 3 <br>
+        ^ Option 1 <br>
+        ^ Option 2 <br>
+        ^ Option 3 <br>
         <br>
-        Type your survey here, considering a maximum of 5 answer options:<br>        
-        <textarea name="survey" rows="10" cols="80" style="font-size: 12pt">Python never gonna:
- ^ give you up.
- ^ let you down.
- ^ run around and desert you.
- ^ make you cry.
- ^ say goodbye.
- ^ tell a lie and hurt you.
-</textarea>
+        Type your survey here, considering a maximum of 5 answer options:<br>
+        <textarea name="survey" rows="10" cols="45" style="font-size: 12pt">{{ data['markdown_str'] }}</textarea>
         <br>
-        <input type="submit">
+        <input type="submit"> 
+        {% if not data['is_format_ok'] %}
+           Error in format. Please review the survey markdown and submit again!
+        {% endif %}
         </left>
     </form>
     </BODY>
