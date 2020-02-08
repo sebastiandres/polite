@@ -18,8 +18,9 @@
         Conteo de respuestas:<br>
         <table>
         {{data['df_count'].to_html(index=False)|safe}}
-        </table>
-            
+        </table>            
+        <br>
+        <a href="{{ url_for('index') }}">Back</a>
 
     </BODY>
 </HTML>

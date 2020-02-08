@@ -7,7 +7,7 @@ USE POLITE;
 ################
 # TABLE SURVEY #
 ################
-CREATE TABLE Surveys
+CREATE TABLE surveys
 (
   survey_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   markdown_str VARCHAR(2000) NOT NULL,
